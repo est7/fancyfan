@@ -1,11 +1,22 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, ToastAndroid, Button, View } from 'react-native'
+import AppRouter from '../AppRouter'
 
 export default class HomeScreen extends React.Component {
+  constructor (props) {
+    super(props)
+  }
+
+  onTextPress = () => {
+    ToastAndroid.show('点击我好疼,短时间的~', ToastAndroid.SHORT)
+  }
+
   render () {
     return (
       <View style={styles.container}>
-        <Text>have a try</Text>
+        <Button title="Press Me"
+                onPress={ToastAndroid.show('点击我好疼,短时间的~', ToastAndroid.SHORT)}>
+          have a try</Button>
       </View>
     )
   }
@@ -19,3 +30,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 })
+
