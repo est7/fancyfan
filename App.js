@@ -1,38 +1,30 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { Provider } from 'react-redux'
+import Store from './src/store/Store'
+import Router from './src/AppRouter'
+
+import {
+  NavigationContext,
+  NavigationProvider,
+  StackNavigation,
+} from '@expo/ex-navigation'
+
+const navigationContext = new NavigationContext({
+  router: Router,
+  store: Store,
+})
 
 export default class App extends React.Component {
-  render() {
+  render () {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
+      <Provider store={Store}>
+        <NavigationProvider context={navigationContext}>
+          <StackNavigation
+            id="root"
+            initialRoute={Router.getRoute('home')}
+          />
+        </NavigationProvider>
+      </Provider>
+    )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-//-------------------------------------------------------//
-import React from 'react';
-import { AppRegistry } from 'react-native';
-import { Provider } from 'react-redux';
-import App from './src/containers/App';
-import configureStore from './src/store/configureStore';
-
-const store = configureStore();
-
-const FancyFan = () => (
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
-
-AppRegistry.registerComponent('fancyfan', () => FancyFan);
